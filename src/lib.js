@@ -6,7 +6,13 @@ const generatePath = function(length) {
     return length;
 }
 
+const isNotInvalidPosition = function(position, length) {
+    let {row, column} = position;
+    return !(row < 0 || row >= length || column >= length);
+};
+
 module.exports = {
   generatePath,
-  findNeighbours
+  findNeighbours,
+  isNotInvalidPosition
 }
