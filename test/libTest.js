@@ -4,7 +4,8 @@ const {
     isNotInvalidPosition, 
     isNotIncludes,
     isValidEdgeNeighbour,
-    isPositionsEqual
+    isPositionsEqual,
+    isPositionOnEdge
 } = require('../src/lib.js');
 
 const { deepEqual } = require('assert');
@@ -112,5 +113,17 @@ describe('isPositionsEqual', function() {
         let positon1 = {row:0, column:0};
         let positon2 = {row:1, column:0};
         deepEqual(isPositionsEqual(positon1, positon2),false);
+    });
+});
+
+describe('isPositionOnEdge', function() {
+    it('should return true when the position is on edge', function() {
+        deepEqual(isPositionOnEdge({row:0 , column :0},1),true);
+        deepEqual(isPositionOnEdge({row:1 , column :3},4),true);
+    });
+
+    it('should return false when the position is not on edge', function() {
+        deepEqual(isPositionOnEdge({row:2 , column :3},5),false);
+        deepEqual(isPositionOnEdge({row:-1 , column :-1},4),false);
     });
 });
