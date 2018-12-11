@@ -11,6 +11,14 @@ const generatePath = function(length,randomGenerator) {
     while(presentPosition.row > 0){
         let allNeighbours = findNeighbours(presentPosition);
         let validNeighbours = validateNeighbours(path,length,allNeighbours);
+        validNeighbours = validNeighbours.filter(isNotIncludes.bind(null,blockedPositions));
+        if(validNeighbours.length == 0){
+            console.log("blocked",path);
+            blockedPositions.push(path[path.length-1])
+            validNeighbours[0] = path[path.length-2];
+            path.pop();
+            path.pop()
+        }
         let randomIndex = (Math.floor(randomGenerator(validNeighbours.length)));
         presentPosition = validNeighbours[randomIndex];
         path.push(presentPosition);
