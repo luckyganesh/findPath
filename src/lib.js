@@ -7,7 +7,6 @@ const generatePath = function(length) {
 }
 
 const isNotIncludes = function(setOfPositions,position){
-    let {row,column } = position;
     return !setOfPositions.some(isPositionsEqual.bind(null,position));
 }
 
@@ -21,7 +20,7 @@ const isValidEdgeNeighbour = function(path, length, presentNeighbour) {
     let neighbour = {row:row+1, column};
     let startingPosition = path[0];
     if (row != length-1) {
-        return !(presentNeighbour.row == neighbour.row && presentNeighbour.column == neighbour.column);
+        return !isPositionsEqual(presentNeighbour,neighbour);
     };
     if(startingPosition.column < column) {
         neighbour = {row, column:column-1};
@@ -29,7 +28,7 @@ const isValidEdgeNeighbour = function(path, length, presentNeighbour) {
     if(startingPosition.column > column) {
         neighbour = {row, column:column+1};
     };
-    return !(presentNeighbour.row == neighbour.row && presentNeighbour.column == neighbour.column);
+    return !isPositionsEqual(presentNeighbour,neighbour);
 };
 
 const isPositionsEqual = function(position1,position2) {
