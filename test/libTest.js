@@ -142,4 +142,18 @@ describe('validateNeighbours', function() {
         expectedOutput = [{row:0,column:1}, {row:1,column:0}];
         deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
     });
+
+    it('should return the neighbours which are in bounds and not included in path ', function() {
+        let presentNeighbour = [{row:-1, column:-1},{row:1, column :1}];
+        let expectedOutput = [];
+        deepEqual(validateNeighbours([{row:1, column :1}],4,presentNeighbour),expectedOutput);
+
+        presentNeighbour = [{row:2, column:3}];
+        expectedOutput = [{row:2, column:3}];
+        deepEqual(validateNeighbours([{row:3,column:3}],4,presentNeighbour),expectedOutput);
+        
+        presentNeighbour = [{row:0,column:1}, {row:0,column:-1}, {row:1,column:0}, {row:-1,column:0}]
+        expectedOutput = [{row:1,column:0}];
+        deepEqual(validateNeighbours([{row:0,column:0},{row:0,column:1}],4,presentNeighbour),expectedOutput);
+    });
 });

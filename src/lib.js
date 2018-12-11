@@ -42,8 +42,9 @@ const isPositionOnEdge = function(position, length) {
 
 const validateNeighbours = function(prevPath,length,presentNeighbours) {
     let validNeighbours = presentNeighbours.filter(isNotInvalidPosition.bind(null,length));
+    validNeighbours = validNeighbours.filter(isNotIncludes.bind(null,prevPath));
     return validNeighbours;
-}
+};
 
 module.exports = {
   generatePath,
