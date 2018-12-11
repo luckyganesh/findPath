@@ -12,8 +12,14 @@ const {
 const { deepEqual } = require('assert');
 
 describe('generatePath', function() {
-    it('should return the length of grid', function() {
-        deepEqual(generatePath(2),2)
+
+    const randomGenerator = function(length) {
+        return 0;
+    };
+
+    it('should return straight path', function() {
+        let expectedOutput = [{row:3,column:0},{row:2,column:0},{row:1,column:0},{row:0,column:0}];
+        deepEqual(generatePath(4, randomGenerator), expectedOutput);
     });
 
 });

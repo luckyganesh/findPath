@@ -1,9 +1,21 @@
 const findNeighbours = function({row,column}){
     return [{row:row+1,column},{row:row-1,column},{row,column:column+1},{row,column:column-1}];
-}
+};
 
-const generatePath = function(length) {
-    return length;
+const generatePath = function(length,randomGenerator) {
+    let path = [];
+    let presentPosition = {row:length-1};
+    presentPosition.column = Math.floor(randomGenerator(length));
+    path.push(presentPosition);
+    let blockedPositions = [];
+    while(presentPosition.row > 0){
+        let allNeighbours = findNeighbours(presentPosition);
+        let validNeighbours = validateNeighbours(path,length,allNeighbours);
+        let randomIndex = (Math.floor(randomGenerator(validNeighbours.length)));
+        presentPosition = validNeighbours[randomIndex];
+        path.push(presentPosition);
+    }
+    return path;
 }
 
 const isNotIncludes = function(setOfPositions,position){
