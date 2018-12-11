@@ -6,7 +6,8 @@ const {
     isValidEdgeNeighbour,
     isPositionsEqual,
     isPositionOnEdge,
-    validateNeighbours
+    validateNeighbours,
+    isIncludes
 } = require('../src/lib.js');
 
 const { deepEqual } = require('assert');
@@ -220,4 +221,30 @@ describe('validateNeighbours', function() {
         deepEqual(validateNeighbours(path,4,presentNeighbour),expectedOutput);
         
     })
+});
+
+describe('isIncludes', function() {
+    it('should return false when given positon is not included in set ', function() {
+        let setOfPositions = [{row:3,column:3}];
+        let position = {row: 2, column:3};
+        deepEqual(isIncludes(setOfPositions, position), false);
+    });
+
+    it('should return true when given positon is included in set ', function() {
+        let setOfPositions = [{row:3,column:3}];
+        let position = {row: 3, column:3};
+        deepEqual(isIncludes(setOfPositions, position), true);
+    });
+
+    it('should return true when given positon is not included in larger set ', function() {
+        let setOfPositions = [{row:3,column:3},{row:2,column:3},{row:1,column:3},{row:1,column:2},{row:2,column:2}];
+        let position = {row: 5, column:5};
+        deepEqual(isIncludes(setOfPositions, position), false);
+    });
+
+    it('should return false when given positon is included in larger set ', function() {
+        let setOfPositions = [{row:3,column:3},{row:2,column:3},{row:1,column:3},{row:1,column:2},{row:2,column:2}];
+        let position = {row: 2, column:3};
+        deepEqual(isIncludes(setOfPositions, position), true);
+    });
 });

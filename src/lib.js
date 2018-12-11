@@ -25,9 +25,13 @@ const generatePath = function(length,randomGenerator) {
     return path;
 }
 
-const isNotIncludes = function(setOfPositions,position){
-    return !setOfPositions.some(isPositionsEqual.bind(null,position));
-}
+const isIncludes = function(setOfPositions,position){
+    return setOfPositions.some(isPositionsEqual.bind(null,position));
+};
+
+const isNotIncludes = function(setOfPositions, position) {
+    return !isIncludes(setOfPositions, position);
+};
 
 const isNotInvalidPosition = function(length,position) {
     let {row, column} = position;
@@ -78,5 +82,6 @@ module.exports = {
   isValidEdgeNeighbour,
   isPositionsEqual,
   isPositionOnEdge,
-  validateNeighbours
+  validateNeighbours,
+  isIncludes
 }
