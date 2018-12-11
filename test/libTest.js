@@ -2,7 +2,9 @@ const {
     generatePath , 
     findNeighbours , 
     isNotInvalidPosition, 
-    isNotIncludes } = require('../src/lib.js');
+    isNotIncludes,
+    isValidEdgeNeighbour
+ } = require('../src/lib.js');
 
 const { deepEqual } = require('assert');
 
@@ -64,5 +66,37 @@ describe('isNotIncludes', function() {
         let setOfPositions = [{row:3,column:3},{row:2,column:3},{row:1,column:3},{row:1,column:2},{row:2,column:2}];
         let position = {row: 2, column:3};
         deepEqual(isNotIncludes(setOfPositions, position), false);
+    });
+});
+
+describe('isValidEdgeNeighbour', function() {
+    it('should return false for invalid edge neighbour', function() {
+        let path = [{row:3 ,column:1},{row:2,column:1},{row:2,column:2},{row:2,column:3}];
+        let length = 4;
+        let presentNeighbour = {row:3,column:3}
+        deepEqual(isValidEdgeNeighbour(path,length,presentNeighbour),false);
+    });
+    it('should return true for invalid edge neighbour', function() {
+        let path = [{row:3 ,column:1},{row:2,column:1},{row:2,column:2},{row:2,column:3}];
+        let length = 4;
+        let presentNeighbour = {row:1,column:3}
+        deepEqual(isValidEdgeNeighbour(path,length,presentNeighbour),true);
+        deepEqual(isValidEdgeNeighbour(path,length,{row:2,column:2}),true);
+    });
+    it('should return check invalid edge neighbour for left rotation', function() {
+        let path = [{row:3 ,column:3},{row:2,column:3},{row:1,column:3},{row:1,column:2},{row:1,column:1},{row:2,column:1},{row:3,column:1}];
+        let length = 4;
+        let presentNeighbour = {row:3,column:2}
+        deepEqual(isValidEdgeNeighbour(path,length,presentNeighbour),false);
+        deepEqual(isValidEdgeNeighbour(path,length,{row:2,column:1}),true);
+        deepEqual(isValidEdgeNeighbour(path,length,{row:3,column:0}),true);
+    });
+    it('should return check invalid edge neighbour for right rotation', function() {
+        let path = [{row:3 ,column:0},{row:2,column:0},{row:1,column:0},{row:1,column:1},{row:1,column:2},{row:2,column:2},{row:3,column:2}];
+        let length = 4;
+        let presentNeighbour = {row:3,column:1}
+        deepEqual(isValidEdgeNeighbour(path,length,presentNeighbour),false);
+        deepEqual(isValidEdgeNeighbour(path,length,{row:3,column:3}),true);
+        deepEqual(isValidEdgeNeighbour(path,length,{row:2,column:2}),true);
     });
 });

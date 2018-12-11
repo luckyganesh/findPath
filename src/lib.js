@@ -16,9 +16,26 @@ const isNotInvalidPosition = function(position, length) {
     return !(row < 0 || row >= length || column >= length);
 };
 
+const isValidEdgeNeighbour = function(path, length, presentNeighbour) {
+    let {row, column} = path[path.length-1];
+    let neighbour = {row:row+1, column};
+    let startingPosition = path[0];
+    if (row != length-1) {
+        return !(presentNeighbour.row == neighbour.row && presentNeighbour.column == neighbour.column);
+    };
+    if(startingPosition.column < column) {
+        neighbour = {row, column:column-1};
+    };
+    if(startingPosition.column > column) {
+        neighbour = {row, column:column+1};
+    };
+    return !(presentNeighbour.row == neighbour.row && presentNeighbour.column == neighbour.column);
+};
+
 module.exports = {
   generatePath,
   findNeighbours,
   isNotInvalidPosition,
-  isNotIncludes
+  isNotIncludes,
+  isValidEdgeNeighbour
 }
