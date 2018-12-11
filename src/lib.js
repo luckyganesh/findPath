@@ -12,7 +12,7 @@ const isNotIncludes = function(setOfPositions,position){
 
 const isNotInvalidPosition = function(position, length) {
     let {row, column} = position;
-    return !(row < 0 || row >= length || column >= length);
+    return !(row < 0 || row >= length || column >= length || column < 0);
 };
 
 const isValidEdgeNeighbour = function(path, length, presentNeighbour) {
