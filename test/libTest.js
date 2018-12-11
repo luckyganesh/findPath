@@ -3,8 +3,9 @@ const {
     findNeighbours , 
     isNotInvalidPosition, 
     isNotIncludes,
-    isValidEdgeNeighbour
- } = require('../src/lib.js');
+    isValidEdgeNeighbour,
+    isPositionsEqual
+} = require('../src/lib.js');
 
 const { deepEqual } = require('assert');
 
@@ -98,5 +99,18 @@ describe('isValidEdgeNeighbour', function() {
         deepEqual(isValidEdgeNeighbour(path,length,presentNeighbour),false);
         deepEqual(isValidEdgeNeighbour(path,length,{row:3,column:3}),true);
         deepEqual(isValidEdgeNeighbour(path,length,{row:2,column:2}),true);
+    });
+});
+
+describe('isPositionsEqual', function() {
+    it('should return true when given positions are equal', function() {
+        let positon1 = {row:0, column:0};
+        deepEqual(isPositionsEqual(positon1, positon1),true);
+    });
+
+    it('should return false when given positions are not equal', function() {
+        let positon1 = {row:0, column:0};
+        let positon2 = {row:1, column:0};
+        deepEqual(isPositionsEqual(positon1, positon2),false);
     });
 });

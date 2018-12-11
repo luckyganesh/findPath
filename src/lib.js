@@ -32,10 +32,15 @@ const isValidEdgeNeighbour = function(path, length, presentNeighbour) {
     return !(presentNeighbour.row == neighbour.row && presentNeighbour.column == neighbour.column);
 };
 
+const isPositionsEqual = function(position1,position2) {
+    return position1.row == position2.row && position1.column == position2.column;
+};
+
 module.exports = {
   generatePath,
   findNeighbours,
   isNotInvalidPosition,
   isNotIncludes,
-  isValidEdgeNeighbour
+  isValidEdgeNeighbour,
+  isPositionsEqual
 }
