@@ -13,7 +13,6 @@ const generatePath = function(length,randomGenerator) {
         let validNeighbours = validateNeighbours(path,length,allNeighbours);
         validNeighbours = validNeighbours.filter(isNotIncludes.bind(null,blockedPositions));
         if(validNeighbours.length == 0){
-            console.log("blocked",path);
             blockedPositions.push(path[path.length-1])
             validNeighbours[0] = path[path.length-2];
             path.pop();
@@ -63,6 +62,7 @@ const isPositionOnEdge = function(position, length) {
 const validateNeighbours = function(prevPath,length,presentNeighbours) {
     let validNeighbours = presentNeighbours.filter(isNotInvalidPosition.bind(null,length));
     validNeighbours = validNeighbours.filter(isNotIncludes.bind(null,prevPath));
+    validNeighbours = validNeighbours.filter((x) => x.row != length-1 );
     let presentPosition = prevPath[prevPath.length-1];
     if(isPositionOnEdge(presentPosition,length)){
         validNeighbours = validNeighbours.filter(isValidEdgeNeighbour.bind(null,prevPath,length));
