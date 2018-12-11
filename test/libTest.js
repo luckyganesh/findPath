@@ -132,14 +132,14 @@ describe('validateNeighbours', function() {
     it('should return valid neighbours which are in bounds', function() {
         let presentNeighbour = [{row:-1, column:-1}];
         let expectedOutput = [];
-        deepEqual(validateNeighbours([],4,presentNeighbour),expectedOutput);
+        deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
 
         presentNeighbour = [{row:2, column:3}];
         expectedOutput = [{row:2, column:3}];
-        deepEqual(validateNeighbours([],4,presentNeighbour),expectedOutput);
+        deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
         
         presentNeighbour = [{row:0,column:1}, {row:0,column:-1}, {row:1,column:0}, {row:-1,column:0}]
         expectedOutput = [{row:0,column:1}, {row:1,column:0}];
-        deepEqual(validateNeighbours([],4,presentNeighbour),expectedOutput);
+        deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
     });
 });
