@@ -8,7 +8,7 @@ const generatePath = function(length) {
 
 const isNotIncludes = function(setOfPositions,position){
     let {row,column } = position;
-    return !setOfPositions.some((x) => x.row == row && x.column == column)
+    return !setOfPositions.some(isPositionsEqual.bind(null,position));
 }
 
 const isNotInvalidPosition = function(position, length) {
