@@ -98,6 +98,17 @@ const selectLevel = function(readline, stop) {
     return selectLevel(readline, stop);
 };
 
+const getGridLength = function(level) {
+    let gridSize = [4,6,8];
+    return gridSize[level-1];
+};
+
+const startGame = function(readline, stop) {
+    let level = selectLevel(readline, stop);
+    let gridLength = getGridLength(level);
+    return gridLength;
+};
+
 module.exports = {
   generatePath,
   findNeighbours,
@@ -109,5 +120,7 @@ module.exports = {
   validateNeighbours,
   isIncludes,
   selectLevel,
-  userInput
+  userInput,
+  startGame,
+  getGridLength
 };

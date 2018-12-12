@@ -9,7 +9,8 @@ const {
   validateNeighbours,
   isIncludes,
   userInput,
-  selectLevel
+  selectLevel,
+  getGridLength
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -26,6 +27,26 @@ describe("generatePath", function() {
       { row: 0, column: 0 }
     ];
     deepEqual(generatePath(4, randomGenerator), expectedOutput);
+  });
+  it('should work for blocking ones', function() {
+      const randomGenerator = function() {
+        let array = [3,0,0,2,1,0,0,0,0,1,0,0];
+        let index = 0;
+        return function() {
+          return array[index++]
+        };
+      };
+      expectedOutput = [
+          {row :4 , column :3 },
+          {row :3 , column :3 },
+          {row :2 , column :3 },
+          {row :2 , column :2 },
+          {row :2 , column :1 },
+          {row :2 , column :0 },
+          {row :1 , column :0 },
+          {row :0 , column :0 }
+      ]
+      deepEqual(generatePath(5,randomGenerator()),expectedOutput)
   });
 });
 
@@ -485,5 +506,16 @@ describe("selectLevel", function() {
       };
     };
     deepEqual(selectLevel(readline()), 2);
+  });
+});
+
+describe('getGridLength', function() {
+  it('should return grid size according to level', function() {
+    deepEqual(getGridLength(1),4);
+    deepEqual(getGridLength(2),6);
+    deepEqual(getGridLength(3),8);
+  });
+  it('should return undefined for unknown level', function() {
+    deepEqual(getGridLength(0),undefined);
   });
 });
