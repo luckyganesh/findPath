@@ -92,11 +92,11 @@ const userInput = function() {
 const selectLevel = function() {
     console.log("1.Easy\n2.Medium\n3.Hard");
     console.log("select the number to start:");
-    let choice = +userInput();
-    if([1,2,3].includes(choice)){
-        return choice;
+    let choice = userInput();
+    if([1,2,3].includes(+choice)){
+        return +choice;
     };
-    console.log(choice,"is wrong input, select again:");
+    console.log(choice+" is wrong input, select again:");
     return selectLevel();
 };
 
