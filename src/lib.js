@@ -1,3 +1,5 @@
+const readline = require('readline-sync').question;
+
 const findNeighbours = function({row,column}){
     return [{row:row+1,column},{row:row-1,column},{row,column:column+1},{row,column:column-1}];
 };
@@ -71,12 +73,31 @@ const validateNeighbours = function(prevPath,length,presentNeighbours) {
         let neighbours = findNeighbours(x)
         neighbours = neighbours.filter(isIncludes.bind(null,prevPath));
         return neighbours.length == 1;
-    })
+    });
     let presentPosition = prevPath[prevPath.length-1];
     if(isPositionOnEdge(presentPosition,length)){
         validNeighbours = validNeighbours.filter(isValidEdgeNeighbour.bind(null,prevPath,length));
-    }
+    };
     return validNeighbours;
+};
+
+const userInput = function() {
+    let input = readline("");
+    if(input == "exit"){
+        process.exit(1);
+    }
+    return input;
+};
+
+const selectLevel = function() {
+    console.log("1.Easy\n2.Medium\n3.Hard");
+    console.log("select the number to start:");
+    let choice = +userInput();
+    if([1,2,3].includes(choice)){
+        return choice;
+    };
+    console.log(choice,"is wrong input, select again:");
+    return selectLevel();
 };
 
 module.exports = {
@@ -88,5 +109,7 @@ module.exports = {
   isPositionsEqual,
   isPositionOnEdge,
   validateNeighbours,
-  isIncludes
-}
+  isIncludes,
+  selectLevel,
+  userInput
+};
