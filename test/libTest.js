@@ -7,7 +7,9 @@ const {
     isPositionsEqual,
     isPositionOnEdge,
     validateNeighbours,
-    isIncludes
+    isIncludes,
+    userInput,
+    selectLevel
 } = require('../src/lib.js');
 
 const { deepEqual } = require('assert');
@@ -246,5 +248,33 @@ describe('isIncludes', function() {
         let setOfPositions = [{row:3,column:3},{row:2,column:3},{row:1,column:3},{row:1,column:2},{row:2,column:2}];
         let position = {row: 2, column:3};
         deepEqual(isIncludes(setOfPositions, position), true);
+    });
+});
+
+describe('userInput', function() {
+    it('should return one when readline get called', function() {
+        const readline = function() {
+            return 1;
+        }
+        deepEqual(userInput(readline),1);
+    });
+
+    it('should return zero when exit get called', function() {
+        const exit = function() {
+            return 0;
+        }
+        const readline = function() {
+            return "exit";
+        }
+        deepEqual(userInput(readline, exit),0);
+    });
+});
+
+describe('selectLevel', function() {
+    it('should return level provided by readline', function() {
+        const readline = function() {
+            return 1;
+        }
+        deepEqual(selectLevel(readline),1);
     });
 });

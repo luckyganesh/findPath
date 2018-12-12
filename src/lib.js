@@ -1,5 +1,3 @@
-const readline = require('readline-sync').question;
-
 const findNeighbours = function({row,column}){
     return [{row:row+1,column},{row:row-1,column},{row,column:column+1},{row,column:column-1}];
 };
@@ -81,23 +79,23 @@ const validateNeighbours = function(prevPath,length,presentNeighbours) {
     return validNeighbours;
 };
 
-const userInput = function() {
+const userInput = function(readline, stop) {
     let input = readline("");
     if(input == "exit"){
-        process.exit(1);
+      return stop(1);
     }
     return input;
 };
 
-const selectLevel = function() {
+const selectLevel = function(readline, stop) {
     console.log("1.Easy\n2.Medium\n3.Hard");
     console.log("select the number to start:");
-    let choice = userInput();
+    let choice = userInput(readline, stop);
     if([1,2,3].includes(+choice)){
         return +choice;
     };
     console.log(choice+" is wrong input, select again:");
-    return selectLevel();
+    return selectLevel(readline, stop);
 };
 
 module.exports = {
