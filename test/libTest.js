@@ -277,4 +277,15 @@ describe('selectLevel', function() {
         }
         deepEqual(selectLevel(readline),1);
     });
+
+    it('should return wrong input and then correct', function() {
+        const readline = function( ) {
+          let  array = [5,2];
+          let index = 0
+            return function() {
+                return array[index++];
+            };
+        };
+        deepEqual(selectLevel(readline()),2);
+    });
 });
