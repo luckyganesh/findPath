@@ -67,6 +67,11 @@ const validateNeighbours = function(prevPath,length,presentNeighbours) {
     let validNeighbours = presentNeighbours.filter(isNotInvalidPosition.bind(null,length));
     validNeighbours = validNeighbours.filter(isNotIncludes.bind(null,prevPath));
     validNeighbours = validNeighbours.filter((x) => x.row != length-1 );
+    validNeighbours = validNeighbours.filter((x)=> {
+        let neighbours = findNeighbours(x)
+        neighbours = neighbours.filter(isIncludes.bind(null,prevPath));
+        return neighbours.length == 1;
+    })
     let presentPosition = prevPath[prevPath.length-1];
     if(isPositionOnEdge(presentPosition,length)){
         validNeighbours = validNeighbours.filter(isValidEdgeNeighbour.bind(null,prevPath,length));

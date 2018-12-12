@@ -141,13 +141,13 @@ describe('validateNeighbours', function() {
         let expectedOutput = [];
         deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
 
-        presentNeighbour = [{row:2, column:3}];
-        expectedOutput = [{row:2, column:3}];
+        presentNeighbour = [{row:0, column:1}];
+        expectedOutput = [{row:0, column:1}];
         deepEqual(validateNeighbours([{row:0,column:0}],4,presentNeighbour),expectedOutput);
         
         presentNeighbour = [{row:0,column:1}, {row:0,column:-1}, {row:1,column:0}, {row:-1,column:0}]
-        expectedOutput = [{row:0,column:1}, {row:1,column:0}];
-        deepEqual(validateNeighbours([{row:3,column:3}],4,presentNeighbour),expectedOutput);
+        expectedOutput = [{row:0,column:1}];
+        deepEqual(validateNeighbours([{row:3,column:0},{row:2,column:0},{row:1,column:0},{row:0,column:0}],4,presentNeighbour),expectedOutput);
     });
 
     it('should return the neighbours which are in bounds and not included in path ', function() {
@@ -211,13 +211,13 @@ describe('validateNeighbours', function() {
 
     it('should return valid neighbours for middle points',function(){
         let presentNeighbour = [{row:1,column:1},{row:3,column:1},{row:2,column:2},{row:2,column:0}];
-        let expectedOutput = [{row:1,column:1},{row:2,column:0}];
-        let path = [{row:3,column:1},{row:2,column:2},{row:2,column:1}];
+        let expectedOutput = [{row:1,column:1},{row:2,column:2},{row:2,column:0}];
+        let path = [{row:3,column:1},{row:2,column:1}];
         deepEqual(validateNeighbours(path,4,presentNeighbour),expectedOutput);
 
         presentNeighbour = [{row:0, column:2},{row:2, column:2},{row:1, column:3},{row:1, column:1}];
         path = [{row:3,column:0},{row:2,column:0},{row:2,column:1},{row:1,column:1},{row:1,column:2}];
-        expectedOutput = [{row:0, column:2},{row:2, column:2},{row:1, column:3}];
+        expectedOutput = [{row:0, column:2},{row:1, column:3}];
         deepEqual(validateNeighbours(path,4,presentNeighbour),expectedOutput);
         
     })

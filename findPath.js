@@ -4,7 +4,8 @@ const randomGenerator = function(length) {
     return Math.random()*length;
 }
 const main = function(){
-  console.log(generatePath(+process.argv[2],randomGenerator))
+  let moves = +process.argv[2];
+  console.log(generatePath(moves,randomGenerator))
   return ;
 }
 main();
