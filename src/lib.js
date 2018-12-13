@@ -161,7 +161,11 @@ const validateInput = function(readLine,stop) {
     }
     console.log("wrong Input");
     return validateInput(readLine,stop);
-}
+};
+
+const rules = function() {
+    return "i : up\nk : down\nj : left\nl : right";
+};
 
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
@@ -190,5 +194,6 @@ module.exports = {
   generateGrid,
   startPoint,
   validateStartPoint,
-  validateInput
+  validateInput,
+  rules
 };

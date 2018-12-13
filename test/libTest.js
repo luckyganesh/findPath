@@ -16,7 +16,8 @@ const {
   generateGrid,
   startPoint,
   validateStartPoint,
-  validateInput
+  validateInput,
+  rules
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -662,5 +663,11 @@ describe('validateInput', function() {
       };
     };
     deepEqual(validateInput(readline(),exit),'j');
+  });
+});
+
+describe('rules', function() {
+  it('should return the rules for game', function() {
+    deepEqual(rules(),"i : up\nk : down\nj : left\nl : right");
   });
 });
