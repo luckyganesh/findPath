@@ -13,7 +13,8 @@ const {
   getGridLength,
   initialGrid,
   placeAlives,
-  generateGrid
+  generateGrid,
+  startPoint
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -261,7 +262,6 @@ describe("validateNeighbours", function() {
       validateNeighbours([{ row: 1, column: 1 }], 4, presentNeighbour),
       expectedOutput
     );
-
     presentNeighbour = [{ row: 2, column: 3 }];
     expectedOutput = [{ row: 2, column: 3 }];
     deepEqual(
@@ -324,7 +324,7 @@ describe("validateNeighbours", function() {
       { row: 3, column: 1 },
       { row: 3, column: 3 },
       { row: 4, column: 2 }
-    ];
+    ]
     path = [
       { row: 3, column: 0 },
       { row: 2, column: 0 },
@@ -585,6 +585,47 @@ describe('generateGrid', function() {
                      '-----------------'
     deepEqual(generateGrid(4,path),expectedOutput);    
   });
+});
 
+describe('startPoint', function() {
+  const exit = function() {
+    return 0;
+  };
+  it('should return score', function() {
+    const readline = function() {
+      return 1;
+    };
+    deepEqual(startPoint({row:0,column:1},4,readline,exit,100),110);
+  });
 
+  it('should return wrong input message when invalid input is given', function() {
+    const readline = function() {
+      let array = ["5",1];
+      let index = 0;
+      return function () {
+        return array[index++];
+      };
+    };
+    deepEqual(startPoint({row:0,column:1},4,readline(),exit,100),110);
+  });
+  it('should return wrong input message when invalid input is given', function() {
+    const readline = function() {
+      let array = [2];
+      let index = 0;
+      return function () {
+        return array[index++];
+      };
+    };
+    deepEqual(startPoint({row:0,column:1},4,readline(),exit,10),0);
+  });
+  it('should return wrong input message when invalid input is given', function() {
+    const readline = function() {
+      let array = [2,1];
+      let index = 0;
+      return function () {
+        return array[index++];
+      };
+    };
+    deepEqual(startPoint({row:0,column:1},4,readline(),exit,100),100);
+  });
 });

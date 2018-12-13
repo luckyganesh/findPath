@@ -121,12 +121,45 @@ const generateGrid = function(length,path) {
     let dashline = new Array(4*length+1).fill("-").join("");
     let lines = grid.map((x) => "| "+ x.join(" | ")+" |");
     return dashline +"\n"+ lines.join("\n"+dashline+"\n") +"\n"+ dashline ;
+};
+
+const isValidStartPoint = function(score,userInput,startPosition){
+    score -= 10;
+    if(userInput == startPosition.column){
+      score +=20;
+    }
+    return score;
 }
+
+const startPoint = function(fp,length,readline,stop,score) {
+    console.log(generateGrid(length,[]));
+    let chances = new Array(length).fill("").map((elem,index) => index);
+    console.log("  "+chances.join("   "));
+    input = +userInput(readline,stop);
+    console.clear();
+    if(!chances.includes(input)){
+        console.log("Wrong input");
+        return startPoint(fp,length,readline,stop,score);
+    }
+    let currScore = isValidStartPoint(score,input,fp);
+    if(currScore === 0){
+        console.log("you lost");
+        return stop(0);
+    }
+    if(currScore == score+10){
+      return currScore;
+    }
+    console.log('----- BOOM -----');
+    console.log("score : "+currScore);
+    return startPoint(fp,length,readline,stop,currScore);
+}
+
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
-    let path = generatePath(gridLength,randomGenerator)
-    return path;
+    let path = generatePath(gridLength,randomGenerator);
+    let score = 100;
+    return startPoint(path[0],gridLength,readline,stop,score);
 };
 
 module.exports = {
@@ -145,5 +178,6 @@ module.exports = {
   getGridLength,
   initialGrid,
   placeAlives,
-  generateGrid
+  generateGrid,
+  startPoint
 };
