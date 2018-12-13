@@ -14,7 +14,8 @@ const {
   initialGrid,
   placeAlives,
   generateGrid,
-  startPoint
+  startPoint,
+  validateStartPoint
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -627,5 +628,15 @@ describe('startPoint', function() {
       };
     };
     deepEqual(startPoint({row:0,column:1},4,readline(),exit,100),100);
+  });
+});
+
+describe('validateStartPoint', function() {
+  it('should return given score incremented by 10 when given start point is valid', function() {
+    deepEqual(validateStartPoint(10,0,{row:0,column:0}),20);
+  });
+
+  it('should return given score reduced by 10 when given start point is invalid', function() {
+    deepEqual(validateStartPoint(10,0,{row:0,column:1}),0);
   });
 });

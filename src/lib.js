@@ -123,7 +123,7 @@ const generateGrid = function(length,path) {
     return dashline +"\n"+ lines.join("\n"+dashline+"\n") +"\n"+ dashline ;
 };
 
-const isValidStartPoint = function(score,userInput,startPosition){
+const validateStartPoint = function(score,userInput,startPosition){
     score -= 10;
     if(userInput == startPosition.column){
       score +=20;
@@ -141,7 +141,7 @@ const startPoint = function(fp,length,readline,stop,score) {
         console.log("Wrong input");
         return startPoint(fp,length,readline,stop,score);
     }
-    let currScore = isValidStartPoint(score,input,fp);
+    let currScore = validateStartPoint(score,input,fp);
     if(currScore === 0){
         console.log("you lost");
         return stop(0);
@@ -179,5 +179,6 @@ module.exports = {
   initialGrid,
   placeAlives,
   generateGrid,
-  startPoint
+  startPoint,
+  validateStartPoint
 };
