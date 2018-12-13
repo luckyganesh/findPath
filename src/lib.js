@@ -167,6 +167,17 @@ const rules = function() {
     return "i : up\nk : down\nj : left\nl : right";
 };
 
+const getNextPosition = function(direction,position) {
+    let {row ,column } = position;
+    let nextPositions = {
+        i : {row : row-1 , column},
+        k : {row : row+1 , column},
+        j : {row , column : column-1},
+        l : {row , column : column+1}
+    }
+    return nextPositions[direction];
+}
+
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
@@ -195,5 +206,6 @@ module.exports = {
   startPoint,
   validateStartPoint,
   validateInput,
-  rules
+  rules,
+  getNextPosition
 };

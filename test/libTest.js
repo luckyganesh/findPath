@@ -17,7 +17,8 @@ const {
   startPoint,
   validateStartPoint,
   validateInput,
-  rules
+  rules,
+  getNextPosition
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -669,5 +670,12 @@ describe('validateInput', function() {
 describe('rules', function() {
   it('should return the rules for game', function() {
     deepEqual(rules(),"i : up\nk : down\nj : left\nl : right");
+  });
+});
+
+describe('getNextPosition', function() {
+  it('should return next position as per the direction provided', function() {
+    deepEqual(getNextPosition('i',{row:3,column:3}),{row:2,column:3});
+    deepEqual(getNextPosition('l',{row:3,column:3}),{row:3,column:4});
   });
 });
