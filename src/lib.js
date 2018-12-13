@@ -138,7 +138,7 @@ const startPoint = function(fp,length,readline,stop,score) {
     input = +userInput(readline,stop);
     console.clear();
     if(!chances.includes(input)){
-        console.log("Wrong input");
+        console.log("Wrong input");        
         return startPoint(fp,length,readline,stop,score);
     }
     let currScore = validateStartPoint(score,input,fp);
@@ -176,14 +176,38 @@ const getNextPosition = function(direction,position) {
         l : {row , column : column+1}
     }
     return nextPositions[direction];
-}
+};
 
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
     let path = generatePath(gridLength,randomGenerator);
     let score = 100;
-    return startPoint(path[0],gridLength,readline,stop,score);
+    score = startPoint(path[0],gridLength,readline,stop,score);
+    let userPath = [path[0]];
+    console.clear();
+    for(let index = 1 ; index < path.length ; index++){
+        console.log("score : "+score);
+        console.log(generateGrid(gridLength,userPath))
+        console.log(rules());
+        let input = validateInput(readline,stop);
+        userPosition = getNextPosition(input,path[index-1]);
+        console.clear();
+        if(isPositionsEqual(userPosition,path[index])){
+            userPath.push(userPosition);
+            score += 10;
+        }else{
+            console.log("---- BOOM ----")
+            score -=10;
+            index--;
+        };
+        if(score == 0){
+            return stop(0);
+        };
+    };
+    console.clear();
+    console.log(generateGrid(gridLength,userPath));
+    return "you Won"
 };
 
 module.exports = {
