@@ -103,10 +103,11 @@ const getGridLength = function(level) {
     return gridSize[level-1];
 };
 
-const startGame = function(readline, stop) {
+const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
-    return gridLength;
+    let path = generatePath(gridLength,randomGenerator)
+    return path;
 };
 
 module.exports = {
