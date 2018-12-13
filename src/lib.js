@@ -115,6 +115,13 @@ const placeAlives = function(grid, path) {
     return grid;
 };
 
+const generateGrid = function(length,path) {
+    let grid = initialGrid(length);
+    grid = placeAlives(grid,path);
+    let dashline = new Array(4*length+1).fill("-").join("");
+    let lines = grid.map((x) => "| "+ x.join(" | ")+" |");
+    return dashline +"\n"+ lines.join("\n"+dashline+"\n") +"\n"+ dashline ;
+}
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
@@ -137,5 +144,6 @@ module.exports = {
   startGame,
   getGridLength,
   initialGrid,
-  placeAlives
+  placeAlives,
+  generateGrid
 };

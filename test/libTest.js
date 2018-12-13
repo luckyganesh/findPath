@@ -12,7 +12,8 @@ const {
   selectLevel,
   getGridLength,
   initialGrid,
-  placeAlives
+  placeAlives,
+  generateGrid
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -557,4 +558,33 @@ describe('placeAlives', function() {
                            [ '*', ' ', ' ', ' ' ] ];
     deepEqual(placeAlives(grid,path),expectedOutput)
   })
+});
+
+describe('generateGrid', function() {
+  it('should return grid of length one when length of one is given', function() {
+    let expectedOutput = "-----\n|   |\n-----";
+    deepEqual(generateGrid(1,[]),expectedOutput);
+  });
+
+  it('should return grid of given length', function() {
+    let path = [{row:1,column:0},{row:1,column:1},{row:0,column:1}];
+    let expectedOutput = '---------\n|   | * |\n---------\n| * | * |\n---------';
+    deepEqual(generateGrid(2,path),expectedOutput);
+  
+    path = [{row:3,column:1},
+            {row:2,column:1},
+            {row:2,column:2}];
+    expectedOutput = '-----------------\n'+
+                     '|   |   |   |   |\n'+
+                     '-----------------\n'+
+                     '|   |   |   |   |\n'+
+                     '-----------------\n'+
+                     '|   | * | * |   |\n'+
+                     '-----------------\n'+
+                     '|   | * |   |   |\n'+
+                     '-----------------'
+    deepEqual(generateGrid(4,path),expectedOutput);    
+  });
+
+
 });
