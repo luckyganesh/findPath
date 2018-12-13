@@ -11,7 +11,8 @@ const {
   userInput,
   selectLevel,
   getGridLength,
-  initialGrid
+  initialGrid,
+  placeAlives
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -534,4 +535,26 @@ describe('initialGrid', function() {
                            [ ' ', ' ', ' ', ' ' ] ];
     deepEqual(initialGrid(4),expectedOutput);
   });
+});
+
+describe('placeAlives', function() {
+  it("shouldn't place any alive cells when path is empty" , function() {
+    deepEqual(placeAlives([[" "]],[]),[[" "]]);
+  });
+  it('should place one alive cell in the grid when path single position', function() {
+    deepEqual(placeAlives([[" "]],[{row:0,column:0}]),[["*"]]);
+    deepEqual(placeAlives([[" ", " "],[" ", " "]],[{row:0,column:0}]),[["*"," "],[" "," "]]);
+  });
+  it('should place more than one alive Cells in the grid when the path length is more than one',()=>{
+    grid = initialGrid(4);
+    path = [{row:3 , column:0},
+            {row:2 , column:0},
+            {row:2 , column:1},
+            {row:1 , column:1}];
+    let expectedOutput = [ [ ' ', ' ', ' ', ' ' ],
+                           [ ' ', '*', ' ', ' ' ],
+                           [ '*', '*', ' ', ' ' ],
+                           [ '*', ' ', ' ', ' ' ] ];
+    deepEqual(placeAlives(grid,path),expectedOutput)
+  })
 });

@@ -106,7 +106,14 @@ const getGridLength = function(level) {
 const initialGrid = function(length){
     grid = new Array(length).fill(length).map((x) => new Array(x).fill(" "));
     return grid;
-}
+};
+
+const placeAlives = function(grid, path) {
+    path.map(({row,column}) => {
+        grid[row][column] = '*';
+    });
+    return grid;
+};
 
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
@@ -129,5 +136,6 @@ module.exports = {
   userInput,
   startGame,
   getGridLength,
-  initialGrid
+  initialGrid,
+  placeAlives
 };
