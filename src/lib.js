@@ -154,6 +154,15 @@ const startPoint = function(fp,length,readline,stop,score) {
     return startPoint(fp,length,readline,stop,currScore);
 }
 
+const validateInput = function(readLine,stop) {
+    let input = userInput(readLine,stop);
+    if(["i","j","k","l"].includes(input)){
+        return input;
+    }
+    console.log("wrong Input");
+    return validateInput(readLine,stop);
+}
+
 const startGame = function(randomGenerator, readline, stop) {
     let level = selectLevel(readline, stop);
     let gridLength = getGridLength(level);
@@ -180,5 +189,6 @@ module.exports = {
   placeAlives,
   generateGrid,
   startPoint,
-  validateStartPoint
+  validateStartPoint,
+  validateInput
 };

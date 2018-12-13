@@ -15,7 +15,8 @@ const {
   placeAlives,
   generateGrid,
   startPoint,
-  validateStartPoint
+  validateStartPoint,
+  validateInput
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -638,5 +639,28 @@ describe('validateStartPoint', function() {
 
   it('should return given score reduced by 10 when given start point is invalid', function() {
     deepEqual(validateStartPoint(10,0,{row:0,column:1}),0);
+  });
+});
+
+describe('validateInput', function() {
+  const exit = function() {
+    return 0;
+  };
+  it('should return input among i/j/k/l', function() {
+    const readline = function() {
+      return 'i';
+    };
+    deepEqual(validateInput(readline,exit),'i');
+  });
+
+  it('should return input among i/j/k/l after wrong input', function() {
+    const readline = function() {
+      let array = [1,'j'];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    deepEqual(validateInput(readline(),exit),'j');
   });
 });
