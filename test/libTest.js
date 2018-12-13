@@ -11,7 +11,7 @@ const {
   userInput,
   selectLevel,
   getGridLength,
-  generateGrid
+  initialGrid
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -521,10 +521,10 @@ describe('getGridLength', function() {
   });
 });
 
-describe('generateGrid', function() {
+describe('initialGrid', function() {
   it('should return grid of less than two length filled with spaces', function() {
-    deepEqual(generateGrid(0),[]);
-    deepEqual(generateGrid(1),[[' ']]);
+    deepEqual(initialGrid(0),[]);
+    deepEqual(initialGrid(1),[[' ']]);
   });
 
   it('should return grid of given length filled with spaces', function() {
@@ -532,6 +532,6 @@ describe('generateGrid', function() {
                            [ ' ', ' ', ' ', ' ' ],
                            [ ' ', ' ', ' ', ' ' ],
                            [ ' ', ' ', ' ', ' ' ] ];
-    deepEqual(generateGrid(4),expectedOutput);
+    deepEqual(initialGrid(4),expectedOutput);
   });
 });

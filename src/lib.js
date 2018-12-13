@@ -103,7 +103,7 @@ const getGridLength = function(level) {
     return gridSize[level-1];
 };
 
-const generateGrid = function(length,path){
+const initialGrid = function(length){
     grid = new Array(length).fill(length).map((x) => new Array(x).fill(" "));
     return grid;
 }
@@ -129,5 +129,5 @@ module.exports = {
   userInput,
   startGame,
   getGridLength,
-  generateGrid
+  initialGrid
 };
