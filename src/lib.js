@@ -1,3 +1,5 @@
+const chalkRainbow = require('chalk-rainbow');
+const chalk = require('chalk');
 const findNeighbours = function({row,column}){
     return [{row:row+1,column},{row:row-1,column},{row,column:column+1},{row,column:column-1}];
 };
@@ -89,12 +91,12 @@ const userInput = function(readline, stop) {
 
 const selectLevel = function(readline, stop) {
     console.log("1.Easy\n2.Medium\n3.Hard");
-    console.log("select the number to start:");
+    console.log(chalk.magenta("select the number to start:"));
     let choice = userInput(readline, stop);
     if([1,2,3].includes(+choice)){
         return +choice;
     };
-    console.log(choice+" is wrong input, select again:");
+    console.log(chalk.red(choice+" is wrong input, select again:"));
     return selectLevel(readline, stop);
 };
 
@@ -132,7 +134,7 @@ const validateStartPoint = function(score,userInput,startPosition){
 }
 
 const startPoint = function(fp,length,readline,stop,score) {
-    console.log(generateGrid(length,[]));
+    console.log(chalk.yellowBright(generateGrid(length,[])));
     let chances = new Array(length).fill("").map((elem,index) => index);
     console.log("  "+chances.join("   "));
     input = +userInput(readline,stop);
@@ -159,7 +161,7 @@ const validateInput = function(readLine,stop) {
     if(["i","j","k","l"].includes(input)){
         return input;
     }
-    console.log("wrong Input");
+    console.log(chalk.red("wrong Input"));
     return validateInput(readLine,stop);
 };
 
@@ -187,9 +189,9 @@ const startGame = function(randomGenerator, readline, stop) {
     let userPath = [path[0]];
     console.clear();
     for(let index = 1 ; index < path.length ; index++){
-        console.log("score : "+score);
-        console.log(generateGrid(gridLength,userPath))
-        console.log(rules());
+        console.log(chalk.green("score : "+score));
+        console.log(chalkRainbow(generateGrid(gridLength,userPath)));
+        console.log(chalk.cyan(rules()));
         let input = validateInput(readline,stop);
         userPosition = getNextPosition(input,path[index-1]);
         console.clear();
@@ -197,7 +199,7 @@ const startGame = function(randomGenerator, readline, stop) {
             userPath.push(userPosition);
             score += 10;
         }else{
-            console.log("---- BOOM ----")
+            console.log(chalk.red("---- BOOM ----"));
             score -=10;
             index--;
         };
@@ -206,7 +208,7 @@ const startGame = function(randomGenerator, readline, stop) {
         };
     };
     console.clear();
-    console.log(generateGrid(gridLength,userPath));
+    console.log(chalkRainbow(generateGrid(gridLength,userPath)));
     return "you Won"
 };
 
