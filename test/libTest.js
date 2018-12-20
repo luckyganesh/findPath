@@ -699,4 +699,41 @@ describe('startGame', function() {
     };
     deepEqual(startGame(randomGenerator(),readline()),"you Won")
   });
+  it('should return you won the match with one invalid move', function() {
+    const randomGenerator = function(){
+      const array = [1,0,0,0];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    const readline = function(){
+      const array = [1,1,'i','j','i','i'];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    deepEqual(startGame(randomGenerator(),readline()),"you Won")
+  });
+  it('should return you lost bcz of more invalid inputs', function() {
+    const randomGenerator = function(){
+      const array = [1,0,0,0];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    const readline = function(){
+      const array = [1,1,'i','j','j','j','j','j','j','j','j','j','j','j','j','j','j'];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    const stop = function() {
+     return "lost"
+    }
+    deepEqual(startGame(randomGenerator(),readline(),stop),"lost")
+  });
 });
