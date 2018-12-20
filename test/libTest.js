@@ -18,7 +18,8 @@ const {
   validateStartPoint,
   validateInput,
   rules,
-  getNextPosition
+  getNextPosition,
+  startGame
 } = require("../src/lib.js");
 
 const { deepEqual } = require("assert");
@@ -677,5 +678,25 @@ describe('getNextPosition', function() {
   it('should return next position as per the direction provided', function() {
     deepEqual(getNextPosition('i',{row:3,column:3}),{row:2,column:3});
     deepEqual(getNextPosition('l',{row:3,column:3}),{row:3,column:4});
+  });
+});
+
+describe('startGame', function() {
+  it('should return you won the match', function() {
+    const randomGenerator = function(){
+      const array = [1,0,0,0];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    const readline = function(){
+      const array = [1,1,'i','i','i'];
+      let index = 0;
+      return function(){
+        return array[index++];
+      };
+    };
+    deepEqual(startGame(randomGenerator(),readline()),"you Won")
   });
 });
