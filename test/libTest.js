@@ -682,58 +682,121 @@ describe('getNextPosition', function() {
 });
 
 describe('startGame', function() {
-  it('should return you won the match', function() {
-    const randomGenerator = function(){
-      const array = [1,0,0,0];
-      let index = 0;
-      return function(){
-        return array[index++];
+  describe('test for 4*4 grid', function() {
+    it('should return you won the match', function () {
+      const randomGenerator = function () {
+        const array = [1, 0, 0, 0];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
       };
-    };
-    const readline = function(){
-      const array = [1,1,'i','i','i'];
-      let index = 0;
-      return function(){
-        return array[index++];
+      const readline = function () {
+        const array = [1, 1, 'i', 'i', 'i'];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
       };
-    };
-    deepEqual(startGame(randomGenerator(),readline()),"you Won")
+      deepEqual(startGame(randomGenerator(), readline()), "you Won");
+    });
+
+    it('should return you won the match with one invalid move', function () {
+      const randomGenerator = function () {
+        const array = [1, 0, 0, 0];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      const readline = function () {
+        const array = [1, 1, 'i', 'j', 'i', 'i'];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      deepEqual(startGame(randomGenerator(), readline()), "you Won");
+    });
+
+    it('should return you lost because of more invalid inputs', function () {
+      const randomGenerator = function () {
+        const array = [1, 0, 0, 0];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      const readline = function () {
+        const array = [1, 1, "i", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j"];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      const stop = function () {
+        return "lost"
+      }
+      deepEqual(startGame(randomGenerator(), readline(), stop), "lost");
+    });
   });
-  it('should return you won the match with one invalid move', function() {
-    const randomGenerator = function(){
-      const array = [1,0,0,0];
-      let index = 0;
-      return function(){
-        return array[index++];
+
+  describe('test for 10 * 10 grid', function() {
+    it('should return you won the match', function () {
+      const randomGenerator = function () {
+        const array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
       };
-    };
-    const readline = function(){
-      const array = [1,1,'i','j','i','i'];
-      let index = 0;
-      return function(){
-        return array[index++];
+      const readline = function () {
+        const array = [3, 0, 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
       };
-    };
-    deepEqual(startGame(randomGenerator(),readline()),"you Won")
+      deepEqual(startGame(randomGenerator(), readline()), "you Won");
+    });
+
+    it('should return you won the match with one invalid move', function () {
+      const randomGenerator = function () {
+        const array = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      const readline = function () {
+        const array = [3, 1, 'i', 'j', 'i', 'i', 'i', 'i', 'i', 'i', 'i'];
+        let index = 0;
+        return function () {
+          return array[index++];
+        };
+      };
+      deepEqual(startGame(randomGenerator(), readline()), "you Won");
+    });
   });
-  it('should return you lost bcz of more invalid inputs', function() {
-    const randomGenerator = function(){
-      const array = [1,0,0,0];
+
+  it('should return you lost because of more invalid inputs', function () {
+    const randomGenerator = function () {
+      const array = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       let index = 0;
-      return function(){
+      return function () {
         return array[index++];
       };
     };
-    const readline = function(){
-      const array = [1,1,'i','j','j','j','j','j','j','j','j','j','j','j','j','j','j'];
+    const readline = function () {
+      const array = [3, 1, "i", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j", "j"];
       let index = 0;
-      return function(){
+      return function () {
         return array[index++];
       };
     };
-    const stop = function() {
-     return "lost"
-    }
-    deepEqual(startGame(randomGenerator(),readline(),stop),"lost")
+    const stop = function () {
+      return "lost"
+    };
+    deepEqual(startGame(randomGenerator(), readline(), stop), "lost");
   });
 });
