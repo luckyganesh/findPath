@@ -1,0 +1,34 @@
+{
+  "name": "findPath",
+  "version": "1.0.0",
+  "description": "",
+  "main": "findPath.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "coverage":"nyc mocha",
+    "start":"node findPathGame.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luckyganesh/findPath.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luckyganesh/findPath/issues"
+  },
+  "homepage": "https://github.com/luckyganesh/findPath#readme",
+  "devDependencies": {
+    "chalk": "^2.4.2",
+    "chalk-rainbow": "^1.0.0",
+    "readline-sync": "^1.4.9"
+  },
+  "dependencies": {
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1"
+  }
+}
